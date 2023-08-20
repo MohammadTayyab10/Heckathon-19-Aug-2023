@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- <h1>Home</h1>
+
+    <button id="button3" class="btn" type="submit">Sign In</button><br>
+     -->
+
+
+    <style>
+        body {
+            background-color: #f3f4f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Roboto", sans-serif;
+            box-sizing: border-box;
+            text-decoration: none;
+        }
+
+        nav.navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #262d3e;
+            color: #fff;
+            padding: 20px 80px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        nav.navbar .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 360px;
+        }
+
+        nav.navbar .logo img {
+            width: 33px;
+            margin-right: 5px;
+        }
+
+        .logo h1 {
+            color: #fff;
+        }
+
+        nav.navbar .links ul {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav.navbar .links ul li a {
+            text-decoration: none;
+            color: #c8ccd3;
+            font-size: 14px;
+            font-weight: 700;
+            word-spacing: 2px;
+            margin-left: 14px;
+            padding: 10px 14px;
+            border-radius: 7px;
+        }
+
+        nav.navbar .links ul li a:hover {
+            text-decoration: none;
+            color: #f7f7f7;
+            background-color: #ffffff35;
+        }
+
+        .navbar .links ul li a.active {
+            background-color: #111827;
+            color: #f7f7f7;
+        }
+
+        .navbar .links ul li a.active:hover {
+            background-color: #111827;
+        }
+
+        .navbar .search {
+            padding: 10px 12px;
+            background-color: #374151;
+            border-radius: 5px;
+            display: flex;
+            width: 320px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search input {
+            background-color: transparent;
+            border: 0;
+            color: #fff;
+            margin-left: 10px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 600;
+            outline: none;
+        }
+
+        .search input::placeholder {
+            color: #777f8d;
+        }
+
+        .search i {
+            color: #767e8c;
+        }
+
+        .navbar .cart svg {
+            width: 25px;
+        }
+
+        .signin {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .signin span {
+            color: #d1d5db;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .signin a {
+            text-decoration: none;
+            color: #e9eaec;
+            font-weight: 600;
+        }
+
+        .search-cart-signin {
+            display: flex;
+            width: 450px;
+            align-items: center;
+            justify-content: space-between;
+        }
+    </style>
+
+
+
+    <nav class="navbar">
+        <div class="nav">
+            <a class="logo" href="./index.html">
+                <img src="https://www.next.co.uk/static-content/icons/header/next/v1/vision/new-next-black-logo.svg"
+                    alt="">
+                <h1>NextShop</h1>
+            </a>
+            <div class="links">
+                <ul>
+                    <li><a class="active" href="index.html">Home</a></li>
+                    <li><a href="index.html">Shop Now</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="search-cart-signin">
+            <div class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" id="search" placeholder="Search">
+            </div>
+            <div class="cart">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="shopping-bag">
+                    <path fill="#9ca3af"
+                        d="M19,7H16V6A4,4,0,0,0,8,6V7H5A1,1,0,0,0,4,8V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V8A1,1,0,0,0,19,7ZM10,6a2,2,0,0,1,4,0V7H10Zm8,13a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V9H8v1a1,1,0,0,0,2,0V9h4v1a1,1,0,0,0,2,0V9h2Z">
+                    </path>
+                </svg>
+            </div>
+
+            <div class="signin">
+                <span>Hello,</span>
+                <a id="username" href="./login.html"><button id="button3">Sign In </button></a>
+                <button id="out-button" onclick="logout()">Sign Out </button>
+
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+    <script type="module">
+
+        import { app, auth } from "./signup.mjs"
+        import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
+
+
+        // const auth = getAuth();
+
+        // var button = document.getElementById("button2").addEventListener('click', login)
+        // function login() {
+
+        //     // var name=document.getElementById("name").value
+        //     var email = document.getElementById("email").value
+        //     var password = document.getElementById("password").value
+        //     console.log(email, password);
+
+
+        //     signInWithEmailAndPassword(auth, email, password)
+
+        //         .then((userCredential) => {
+        //             // Signed in 
+        //             const user = userCredential.user;
+        //             console.log(user, "User Agya");
+        //             alert("User Signed In");
+
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/auth.user
+                // const uid = user.uid;
+
+                document.getElementById("button3").innerHTML = user.email;
+                document.getElementById("username").href = "";
+
+
+                // window.location.href = "./index.html"
+
+                // ...
+            } else {
+                // User is signed out
+                // ...
+            }
+        });
+
+
+        // window.location.href="./index.html" 
+
+        //             // ...
+        //         })
+
+        //         .catch((error) => {
+        //             const errorCode = error.code;
+        //             const errorMessage = error.message;
+        //             console.log("error", errorMessage);
+
+        //         });
+
+
+        // };
+
+    //     function logout () {
+
+    //     signOut(auth).then(() => {
+    //         // Sign-out successful.
+    //         // document.getElementById("button3").innerHTML="Sign In";
+    //         // document.getElementById("username").href="./login.html"
+    //     }).catch((error) => {
+    //         // An error happened.
+    //     });
+
+    // }
+
+
+    // window.logout=logout;
+    </script>
+
+</body>
+
+</html>
